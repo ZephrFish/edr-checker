@@ -31,18 +31,25 @@ $edr_list = @('activeconsole',
               'endgame',
               'fireeye',
               'forescout',
+              'fortiedr',
               'groundling',
-              'GRRservice'
+              'GRRservice',
+              'healthservice',
               'inspector',
               'ivanti',
               'kaspersky',
               'lacuna',
               'logrhythm',
+              'logcollector',
               'malware',
               'mandiant',
               'mcafee',
+              'monitoringhost',
               'morphisec',
+              'mpcmdrun',
               'msascuil',
+              'msmpeng',
+              'mssense',
               'msmpeng',
               'nissrv',
               'ntrtscan',
@@ -52,15 +59,17 @@ $edr_list = @('activeconsole',
               'pgsystemtray',
               'privilegeguard',
               'procwall',
-              'protectorservice'
+              'protectorservice',
               'qradar',
               'redcloak',
               'secureconnector',
               'secureworks',
               'securityhealthservice',
-              'semlaunchsvc'
+              'semlaunchsvc',
+              'senseir',
+              'sense',
               'sentinel',
-              'sepliveupdate'
+              'sepliveupdate',
               'sisidsservice',
               'sisipsservice',
               'sisipsutil',
@@ -71,7 +80,7 @@ $edr_list = @('activeconsole',
               'splunk',
               'srtsp',
               'symantec',
-              'symcorpui'
+              'symcorpui',
               'symefasi',
               'sysinternal',
               'sysmon',
@@ -89,7 +98,8 @@ $edr_list = @('activeconsole',
               'windowssensor',
               'wireshark',
               'xagt'
-             )
+            )
+
 
 <#
 .SYNOPSIS
@@ -178,7 +188,7 @@ function Invoke-EDRChecker
 
         Write-Output ""
         Write-Output "[!] Checking installed services"
-        if ($serv = Get-Service | Select-Object Name,DisplayName,ServiceName | Select-String -Pattern $edr -AllMatches)
+        if ($serv = Get-Service   | Select-Object Name,DisplayName,ServiceName | Select-String -Pattern $edr -AllMatches)
         {ForEach ($p in $serv -Replace "@{") {Write-Output "[-] $p".Trim("}")}}
         else {Write-Output "[+] No suspicious services found"}
 
